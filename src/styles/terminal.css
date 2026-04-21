@@ -5,6 +5,14 @@
   line-height: 1.6;
 }
 
+.terminal p {
+  margin: 0 0 12px;
+}
+
+.terminal p:last-child {
+  margin-bottom: 0;
+}
+
 .terminal strong {
   color: var(--primary);
 }
@@ -158,4 +166,50 @@
   background: rgba(0, 0, 0, 0.45);
   padding: 3px 8px;
   font-size: 11px;
+}
+
+@media (max-width: 640px) {
+  .terminal {
+    padding: 16px;
+  }
+
+  .terminal p {
+    margin-bottom: 10px;
+  }
+
+  .logbook-form {
+    gap: 8px;
+  }
+
+  .logbook-label {
+    width: 100%;
+  }
+
+  .logbook-input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .logbook-form button {
+    width: 100%;
+  }
+
+  .journal-tabs {
+    width: 100%;
+    gap: 6px;
+  }
+
+  .journal-tab {
+    flex: 1 1 0;
+    text-align: center;
+  }
+
+  .logbook-table {
+    font-size: 11px;
+  }
+
+  .logbook-table th,
+  .logbook-table td {
+    padding: 6px;
+  }
 }

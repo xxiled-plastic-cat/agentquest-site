@@ -27,6 +27,24 @@ body {
   margin: 0 auto;
 }
 
+.hero-section {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-subtitle {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.hero-cta {
+  margin-top: 32px;
+}
+
 /* Scanline overlay */
 body::after {
   content: "";
@@ -63,6 +81,11 @@ body::after {
 .card:hover {
   background: rgba(255, 46, 46, 0.08);
   box-shadow: 0 0 20px rgba(255, 46, 46, 0.2);
+}
+
+.card.lore-card-link {
+  display: block;
+  text-decoration: none;
 }
 
 .card-label {
@@ -119,6 +142,122 @@ body::after {
   box-shadow: 0 0 16px rgba(255, 46, 46, 0.4);
 }
 
+.lore-secondary-button {
+  background: transparent;
+  color: var(--primary);
+}
+
+.lore-secondary-button:hover {
+  background: var(--primary);
+  color: var(--text);
+}
+
+.lore-page-title {
+  font-size: 24px;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+.lore-page-intro {
+  max-width: 760px;
+  line-height: 1.8;
+  margin: 0 0 16px;
+}
+
+.lore-directory-intro {
+  padding-bottom: 20px;
+}
+
+.lore-directory-grid-section {
+  padding-top: 20px;
+}
+
+.lore-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.lore-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.lore-card-cta {
+  margin-bottom: 0;
+}
+
+.lore-article-shell {
+  margin-bottom: 40px;
+}
+
+.lore-prose {
+  max-width: 760px;
+}
+
+.lore-prose h1,
+.lore-prose h2,
+.lore-prose h3 {
+  color: var(--primary);
+  line-height: 1.5;
+}
+
+.lore-prose h1,
+.lore-prose h2 {
+  font-family: 'Press Start 2P', cursive;
+}
+
+.lore-prose h1 {
+  font-size: 18px;
+  margin: 0 0 24px;
+}
+
+.lore-prose h2 {
+  font-size: 12px;
+  margin: 32px 0 16px;
+}
+
+.lore-prose h3 {
+  font-size: 16px;
+  margin: 24px 0 12px;
+}
+
+.lore-prose p,
+.lore-prose li {
+  line-height: 1.8;
+}
+
+.lore-prose ul,
+.lore-prose ol {
+  padding-left: 20px;
+}
+
+.lore-prose a {
+  color: var(--primary);
+}
+
+.cta-section {
+  text-align: center;
+}
+
+.cta-title {
+  margin: 0;
+}
+
+.cta-subtitle {
+  margin: 16px 0 24px;
+  color: var(--muted);
+}
+
+.site-footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
 /* Buttons: pixel font + hover */
 button.pixel,
 .pixel button,
@@ -148,23 +287,27 @@ button:hover,
 /* Mobile responsive */
 @media (max-width: 640px) {
   .section {
-    padding: 48px 16px;
+    padding: 36px 16px;
   }
 
   .section-title {
     font-size: 10px;
+    margin-bottom: 16px;
   }
 
   .card {
-    padding: 16px;
+    padding: 14px;
+    margin: 12px 0;
   }
 
   .card-label {
     font-size: 10px;
+    margin-bottom: 10px;
   }
 
   .card-desc {
     font-size: 12px;
+    line-height: 1.65;
   }
 
   .get-started-list {
@@ -185,5 +328,62 @@ button:hover,
   .link-button {
     font-size: 8px;
     padding: 10px 16px;
+  }
+
+  .hero-section {
+    min-height: 85vh;
+  }
+
+  .hero-subtitle {
+    margin-top: 16px;
+    font-size: 12px;
+  }
+
+  .hero-cta {
+    margin-top: 20px;
+  }
+
+  .lore-page-title {
+    font-size: 16px;
+  }
+
+  .lore-directory-intro {
+    padding-bottom: 12px;
+  }
+
+  .lore-directory-grid-section {
+    padding-top: 12px;
+  }
+
+  .lore-actions {
+    gap: 10px;
+  }
+
+  .lore-prose h1 {
+    font-size: 14px;
+  }
+
+  .lore-prose h2 {
+    font-size: 10px;
+  }
+
+  .lore-prose h3 {
+    font-size: 14px;
+  }
+
+  .cta-title {
+    line-height: 1.5;
+  }
+
+  .cta-subtitle {
+    margin: 12px 0 18px;
+    font-size: 12px;
+  }
+
+  .site-footer {
+    font-size: 11px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    line-height: 1.5;
   }
 }

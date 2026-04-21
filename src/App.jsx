@@ -1,9 +1,8 @@
 import Hero from "./components/Hero";
 import TerminalSection from "./components/TerminalSection";
 import Features from "./components/Features";
-import WorldLog from "./components/WorldLog";
 import AgentLogbooks from "./components/AgentLogbooks";
-import AgentConfig from "./components/AgentConfig";
+import LoreOverview from "./components/LoreOverview";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 
@@ -12,10 +11,9 @@ export default function App() {
     <>
       <Hero />
       <TerminalSection />
+      <LoreOverview />
       <Features />
-      <WorldLog />
       <AgentLogbooks />
-      <AgentConfig />
       <CTA />
       <Footer />
     </>
