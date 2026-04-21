@@ -19,3 +19,143 @@
     opacity: 0;
   }
 }
+
+.logbook-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.logbook-label {
+  font-size: 12px;
+  color: var(--primary);
+}
+
+.logbook-input {
+  min-width: 220px;
+  padding: 10px;
+  border: 1px solid var(--primary);
+  background: #050505;
+  color: var(--text);
+  font-family: "IBM Plex Mono", monospace;
+}
+
+.logbook-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 46, 46, 0.35);
+}
+
+.logbook-table-wrap {
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+.logbook-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.logbook-table th,
+.logbook-table td {
+  border: 1px solid rgba(255, 46, 46, 0.55);
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.logbook-table th {
+  color: var(--primary);
+  background: rgba(255, 46, 46, 0.08);
+}
+
+.empty-row {
+  text-align: center;
+  color: var(--muted);
+  padding: 14px !important;
+}
+
+.error-text {
+  color: #ff7474;
+  font-size: 12px;
+}
+
+.journal-tabs {
+  display: inline-flex;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+.journal-tab {
+  border: 1px solid rgba(255, 46, 46, 0.55);
+  background: #050505;
+  color: var(--muted);
+  padding: 6px 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.journal-tab:hover {
+  color: var(--text);
+}
+
+.journal-tab.active {
+  color: var(--primary);
+  background: rgba(255, 46, 46, 0.08);
+}
+
+.questlog {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.quest-day {
+  border: 1px solid rgba(255, 46, 46, 0.45);
+  background: linear-gradient(180deg, rgba(255, 46, 46, 0.08), rgba(0, 0, 0, 0.75));
+  padding: 12px;
+  box-shadow: inset 0 0 0 1px rgba(255, 46, 46, 0.1);
+}
+
+.quest-day-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.quest-day-label {
+  margin: 0;
+  color: var(--primary);
+  letter-spacing: 0.08em;
+}
+
+.quest-day-meta {
+  margin: 0;
+  font-size: 11px;
+}
+
+.quest-day-opening {
+  margin: 0 0 10px;
+  color: #ffd7d7;
+  font-style: italic;
+  white-space: pre-line;
+}
+
+.quest-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.quest-stats span {
+  border: 1px solid rgba(255, 46, 46, 0.45);
+  background: rgba(0, 0, 0, 0.45);
+  padding: 3px 8px;
+  font-size: 11px;
+}
