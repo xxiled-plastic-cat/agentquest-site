@@ -1,0 +1,189 @@
+:root {
+  --bg: #000000;
+  --primary: #ff2e2e;
+  --text: #ffffff;
+  --muted: #888;
+  --panel: #0a0a0a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.pixel {
+  font-family: 'Press Start 2P', cursive;
+}
+
+.section {
+  padding: 80px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Scanline overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.03),
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Section titles */
+.section-title {
+  font-size: 14px;
+  margin-bottom: 24px;
+  color: var(--primary);
+}
+
+/* Card styling for Features */
+.card {
+  border: 1px solid var(--primary);
+  background: var(--panel);
+  padding: 24px;
+  margin: 16px 0;
+  color: var(--text);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  background: rgba(255, 46, 46, 0.08);
+  box-shadow: 0 0 20px rgba(255, 46, 46, 0.2);
+}
+
+.card-label {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  color: var(--primary);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.card-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  margin: 0;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+/* Get started list and code */
+.get-started-list {
+  margin: 16px 0;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+
+.get-started-list code {
+  background: var(--panel);
+  padding: 2px 6px;
+  border: 1px solid var(--primary);
+  font-size: 12px;
+}
+
+.link-button {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 12px 24px;
+  background: var(--primary);
+  color: var(--text);
+  border: 2px solid var(--primary);
+  text-decoration: none;
+  font-size: 10px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.link-button:hover {
+  background: transparent;
+  color: var(--primary);
+  box-shadow: 0 0 16px rgba(255, 46, 46, 0.4);
+}
+
+/* Buttons: pixel font + hover */
+button.pixel,
+.pixel button,
+button {
+  font-family: 'Press Start 2P', cursive;
+  background: var(--primary);
+  color: var(--text);
+  border: 2px solid var(--primary);
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 10px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+button:hover,
+.pixel button:hover {
+  background: transparent;
+  color: var(--primary);
+  box-shadow: 0 0 16px rgba(255, 46, 46, 0.4);
+}
+
+/* Smooth scroll target offset so section title isn’t flush with top */
+.section[id] {
+  scroll-margin-top: 24px;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .section {
+    padding: 48px 16px;
+  }
+
+  .section-title {
+    font-size: 10px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card-label {
+    font-size: 10px;
+  }
+
+  .card-desc {
+    font-size: 12px;
+  }
+
+  .get-started-list {
+    padding-left: 18px;
+    font-size: 13px;
+  }
+
+  .get-started-list code {
+    font-size: 10px;
+  }
+
+  button,
+  button.pixel {
+    font-size: 8px;
+    padding: 10px 16px;
+  }
+
+  .link-button {
+    font-size: 8px;
+    padding: 10px 16px;
+  }
+}

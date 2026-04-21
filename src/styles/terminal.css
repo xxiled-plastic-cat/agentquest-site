@@ -1,0 +1,21 @@
+.terminal {
+  border: 1px solid var(--primary);
+  background: #000;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.terminal strong {
+  color: var(--primary);
+}
+
+.cursor::after {
+  content: "_";
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
