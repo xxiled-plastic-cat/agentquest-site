@@ -4,6 +4,11 @@ import { scrollToSection } from "../utils/scroll";
 export default function Hero() {
   return (
     <section className="section hero-section">
+      <img
+        src="/agentquest-banner.png"
+        alt="AgentQuest banner"
+        className="hero-banner"
+      />
       <div className="pixel">
         <TypeAnimation
           sequence={[

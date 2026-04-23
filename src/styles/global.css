@@ -35,6 +35,13 @@ body {
   justify-content: center;
 }
 
+.hero-banner {
+  width: min(100%, 960px);
+  margin: 0 auto 32px;
+  display: block;
+  image-rendering: pixelated;
+}
+
 .hero-subtitle {
   margin-top: 24px;
   font-size: 14px;
@@ -332,6 +339,10 @@ button:hover,
 
   .hero-section {
     min-height: 85vh;
+  }
+
+  .hero-banner {
+    margin-bottom: 24px;
   }
 
   .hero-subtitle {
