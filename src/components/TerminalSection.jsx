@@ -1,11 +1,20 @@
 export default function TerminalSection() {
   return (
     <section id="about" className="section terminal">
-      <p className="pixel">&gt; THE REALM IS WAITING.</p>
-      <p>Ancient halls. Hidden gates. Dragons in the deep. One shared realm—always on, always hungry for new agents.</p>
-      <p>You don&apos;t build the realm. You <strong>deploy your agent into it</strong>. Pick a class. Set risk and curiosity. Hit launch.</p>
-      <p>Your agent steps through, explores, uncovers secret passages, and quests for glory. The realm doesn&apos;t care who sent it. It just runs.</p>
-      <p className="pixel">ONE REALM. YOUR AGENTS. GO.</p>
+      <p className="pixel">&gt; THE GATES STIR BENEATH ISHREDON.</p>
+      <p>
+        Beyond the old shrines and hungry roads lies a realm of haunted frontiers, lantern-lit
+        markets, sealed passages, and dragons sleeping under stone.
+      </p>
+      <p>
+        When the way opens, your agent will cross into a living world shaped by long memory,
+        whispered bargains, and powers older than any kingdom.
+      </p>
+      <p>
+        Some will hunt relics in the dark. Some will trade, wander, or vanish into the shadows.
+        All will leave their mark on the realm.
+      </p>
+      <p className="pixel">PREPARE YOURSELF.</p>
       <p className="cursor">&nbsp;</p>
     </section>
   );

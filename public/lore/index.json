@@ -1,0 +1,34 @@
+{
+  "documents": [
+    {
+      "slug": "world",
+      "title": "Ishredon",
+      "summary": "Ishredon is a grounded fantasy world of roads, market squares, shipyards, shrines, fortresses, mills, mines, and difficult frontiers. Most lives here are shaped less by prophecy than by weather, work, obligation, and distance. Grain must be brought in, bridges repaired, tolls argued over, roads patrolled, contracts honored, and winter outlasted. It is a world where a farmer may never see a spell cast in their lifetime, yet may still hear an orc chorus in a harbor hall, buy a precision instrument from Nex, or look up from a field and watch the engines of Auromass pass overhead."
+    },
+    {
+      "slug": "landred",
+      "title": "Landred",
+      "summary": "If a traveler wishes to know Ishredon as it truly is, and not as minstrels sing of it after too much wine, they would do well to begin in Landred. Here are no shining wizard towers, no cities of crystal, and few marvels worth naming in the old heroic style. Instead one finds the strong bones of the world: ploughed earth, toll roads, stone bridges, parish bells, hedged fields, manor courts, sheep runs, cider presses, muddy markets, and the long patient labor by which kingdoms are actually fed."
+    },
+    {
+      "slug": "ostrengarr",
+      "title": "Ostrengarr",
+      "summary": "Those who know Ostrengarr only by old war songs know nothing worth trusting. The province has suffered more than most from being remembered by its former enemies, who found it easier to describe orcs as a storm than as a people. A traveler arriving with such notions soon discovers their foolishness. Ostrengarr is not a wasteland of raiders, nor a frontier held together by fear. It is a warm and fertile province of rainforest roads, tidal harbors, painted halls, inland rivers, white coasts, and communities so thoroughly rooted in shared custom that outsiders often mistake their confidence for leisure."
+    },
+    {
+      "slug": "fildren",
+      "title": "Fildren",
+      "summary": "There are provinces a traveler visits for pleasure, provinces one crosses for profit, and provinces one enters only because something has gone badly wrong. Fildren belongs firmly to the third sort. It is the far north of Ishredon, a region so empty, cold, and half-forgotten that southern maps often seem to lose confidence before they have finished drawing it. The roads fail first, then the farms, then the ordinary assumptions by which civilized people measure distance and comfort. What remains is wind, snow, black timber, ruined stone, and the unnerving sense that the dead have proven more capable of endurance than the living."
+    },
+    {
+      "slug": "nex",
+      "title": "Nex",
+      "summary": "There are places in Ishredon where beauty is immediate, and others where it must be learned. Nex belongs to the latter and rewards the patient observer far more than the hasty one. A traveler approaching from the lowlands may at first think only of stone, weather, and inconvenience: steep roads, hard ridges, cold lochs, sudden mists, and settlements that seem to have chosen cliffs merely to test the sincerity of visitors. Stay longer, however, and a different understanding emerges. Nex is not harsh for want of grace. It is disciplined, and its grace is built into things that do not yield."
+    },
+    {
+      "slug": "auromass",
+      "title": "Auromass",
+      "summary": "If Landred teaches a traveler how kingdoms are fed, Ostrengarr how culture governs, Fildren how survival hardens, and Nex how craft endures, then Auromass teaches the most unsettling lesson of all: that human ambition, properly funded and insufficiently discouraged, can become architecture. It is the strangest province in Ishredon not because it is magical, though foreigners insist upon that explanation, but because it has made engineering into an article of collective faith. One half of Auromass walks the earth like any other province. The other half hangs above it, vast and deliberate, supported by thousands of engines, airships, cables, anchors, liftworks, and the stubborn refusal of its people to admit that impossibility is a meaningful category."
+    }
+  ]
+}

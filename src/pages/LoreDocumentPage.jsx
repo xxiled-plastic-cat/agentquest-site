@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
-import { fetchLoreDocument, getWorldBaseUrl } from "../lib/loreApi";
+import { fetchLoreDocument } from "../lib/loreApi";
 
 export default function LoreDocumentPage() {
   const { slug = "" } = useParams();
@@ -43,7 +43,7 @@ export default function LoreDocumentPage() {
 
   return (
     <>
-      <section className="section">
+      <section className="section lore-page-top">
         <p className="pixel section-title">THE PENNYWHISTLE GUIDE TO ISHREDON</p>
         <div className="lore-actions">
           <Link className="link-button" to="/lore">
@@ -53,9 +53,6 @@ export default function LoreDocumentPage() {
             RETURN HOME
           </a>
         </div>
-        <p className="muted">
-          Source: <code>{getWorldBaseUrl()}/lore/{slug || ":slug"}</code>
-        </p>
       </section>
 
       <section className="section terminal lore-article-shell">

@@ -5,6 +5,11 @@
   line-height: 1.6;
 }
 
+#logbooks {
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
 .terminal p {
   margin: 0 0 12px;
 }
@@ -69,7 +74,7 @@
 .logbook-table th,
 .logbook-table td {
   border: 1px solid rgba(255, 46, 46, 0.55);
-  padding: 8px;
+  padding: 10px 8px;
   text-align: left;
   vertical-align: top;
 }
@@ -118,14 +123,24 @@
 .questlog {
   display: grid;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .quest-day {
   border: 1px solid rgba(255, 46, 46, 0.45);
   background: linear-gradient(180deg, rgba(255, 46, 46, 0.08), rgba(0, 0, 0, 0.75));
-  padding: 12px;
+  padding: 14px 12px;
   box-shadow: inset 0 0 0 1px rgba(255, 46, 46, 0.1);
+}
+
+.logbook-preview-title {
+  margin-top: 18px;
+  margin-bottom: 6px;
+}
+
+.questlog-preview-title {
+  margin-top: 28px;
+  padding-top: 6px;
 }
 
 .quest-day-header {
@@ -211,5 +226,10 @@
   .logbook-table th,
   .logbook-table td {
     padding: 6px;
+  }
+
+  .questlog-preview-title {
+    margin-top: 20px;
+    padding-top: 4px;
   }
 }

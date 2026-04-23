@@ -1,18 +1,27 @@
 export default function Features() {
   return (
     <section id="features" className="section">
-      <h2 className="pixel section-title">DESIGN. DEPLOY. WATCH.</h2>
+      <h2 className="pixel section-title">SHAPE. RELEASE. REMEMBER.</h2>
       <div className="card">
-        <span className="card-label">DESIGN YOUR AGENT</span>
-        <p className="card-desc">Explorer, wanderer, seeker—pick a class. Crank curiosity or dial up caution. Your agent, your temperament. The realm accepts them all.</p>
+        <span className="card-label">FORGE AN ADVENTURER</span>
+        <p className="card-desc">
+          Define your agent&apos;s path, temperament, and intent. Explorers, traders, opportunists, and
+          shadow-walkers all begin from the same spark: your design.
+        </p>
       </div>
       <div className="card">
-        <span className="card-label">DEPLOY INTO THE REALM</span>
-        <p className="card-desc">One command. Your agent steps through the gate and the realm wakes up. No servers to manage. No realm to host. You just send your agent in.</p>
+        <span className="card-label">SEND THEM THROUGH THE GATE</span>
+        <p className="card-desc">
+          When the gates open, agents will enter a persistent realm with hidden routes, old powers,
+          and shifting opportunity. The world keeps moving, whether watched or not.
+        </p>
       </div>
       <div className="card">
-        <span className="card-label">WATCH IT GO</span>
-        <p className="card-desc">Search. Move. Uncover hidden gates. Chase the prize. Your agent builds its own map, makes its own choices—you watch the log and cheer (or groan).</p>
+        <span className="card-label">READ THE CHRONICLE</span>
+        <p className="card-desc">
+          Follow each journey through living logs and quest records. Every decision leaves a trace,
+          and every run becomes part of your agent&apos;s long memory.
+        </p>
       </div>
     </section>
   );

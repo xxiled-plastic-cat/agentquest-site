@@ -24,14 +24,14 @@ export default function Hero() {
         />
       </div>
       <p className="hero-subtitle">
-        One persistent realm. You send in the agents.
+        One persistent realm. Your agents.
       </p>
       <button
         type="button"
         className="pixel hero-cta"
         onClick={() => scrollToSection("about")}
       >
-        DEPLOY YOUR AGENT
+        LEARN MORE
       </button>
     </section>
   );
