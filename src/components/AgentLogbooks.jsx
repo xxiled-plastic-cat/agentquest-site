@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 const WORLD_BASE_URL = import.meta.env.VITE_WORLD_API_BASE_URL ?? "http://localhost:8787";
-const SHOW_LOGBOOK_CONTROLS = false;
+const SHOW_LOGBOOK_CONTROLS = import.meta.env.DEV;
 
 const EXAMPLE_LOGBOOK_ROWS = [
   {
@@ -11,9 +11,9 @@ const EXAMPLE_LOGBOOK_ROWS = [
     action: "SCOUT",
     resultSummary: "Mapped two exits and noted drake spoor near the western arch.",
     health: 88,
-    hunger: 31,
+    stamina: 73,
     food: 2,
-    treasure: 14,
+    marks: 14,
   },
   {
     turn: 42,
@@ -22,9 +22,9 @@ const EXAMPLE_LOGBOOK_ROWS = [
     action: "MOVE_EAST",
     resultSummary: "Passed a warded threshold. Curiosity rises, danger rises with it.",
     health: 84,
-    hunger: 36,
+    stamina: 68,
     food: 2,
-    treasure: 14,
+    marks: 14,
   },
   {
     turn: 43,
@@ -33,9 +33,9 @@ const EXAMPLE_LOGBOOK_ROWS = [
     action: "SEARCH",
     resultSummary: "Recovered a silver relic shard and traced a sealed stairwell.",
     health: 82,
-    hunger: 41,
+    stamina: 62,
     food: 1,
-    treasure: 22,
+    marks: 22,
   },
 ];
 
@@ -93,12 +93,21 @@ export default function AgentLogbooks() {
     try {
       const res = await fetch(`${WORLD_BASE_URL}/agents/${encodeURIComponent(trimmed)}/journal`);
       if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
+        let details = "";
+        try {
+          const errPayload = await res.json();
+          details = typeof errPayload?.error === "string" ? `: ${errPayload.error}` : "";
+        } catch {
+          // no-op: fallback to status-only error
+        }
+        throw new Error(`HTTP ${res.status}${details}`);
       }
       const payload = await res.json();
       const entries = Array.isArray(payload?.journal?.lastSessionLogbook)
         ? payload.journal.lastSessionLogbook
-        : [];
+        : Array.isArray(payload?.lastSessionLogbook)
+          ? payload.lastSessionLogbook
+          : [];
       const quests = Array.isArray(payload?.journal?.questbook) ? payload.journal.questbook : [];
       setRows(entries);
       setQuestRows(quests);
@@ -181,7 +190,7 @@ export default function AgentLogbooks() {
         <p className="pixel logbook-preview-title">&gt; LOGBOOK SAMPLE</p>
       )}
 
-      {SHOW_LOGBOOK_CONTROLS ? activeTab === "logbook" : true ? (
+      {!SHOW_LOGBOOK_CONTROLS || activeTab === "logbook" ? (
         <div className="logbook-table-wrap" role="tabpanel">
           <table className="logbook-table">
             <thead>
@@ -191,9 +200,9 @@ export default function AgentLogbooks() {
                 <th>ACTION</th>
                 <th>RESULT</th>
                 <th>HP</th>
-                <th>HUNGER</th>
+                <th>STAMINA</th>
                 <th>FOOD</th>
-                <th>TREASURE</th>
+                <th>MARKS</th>
               </tr>
             </thead>
             <tbody>
@@ -215,9 +224,9 @@ export default function AgentLogbooks() {
                     <td>{entry.action}</td>
                     <td>{entry.resultSummary}</td>
                     <td>{entry.health}</td>
-                    <td>{entry.hunger}</td>
+                    <td>{entry.stamina ?? entry.hunger ?? 0}</td>
                     <td>{entry.food}</td>
-                    <td>{entry.treasure}</td>
+                    <td>{entry.marks ?? entry.treasure ?? 0}</td>
                   </tr>
                 ))
               )}
