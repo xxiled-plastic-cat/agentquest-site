@@ -1,5 +1,6 @@
 import Hero from "./components/Hero";
 import TerminalSection from "./components/TerminalSection";
+import AgentCreator from "./components/AgentCreator";
 import Features from "./components/Features";
 import EconomySection from "./components/EconomySection";
 import AgentLogbooks from "./components/AgentLogbooks";
@@ -12,6 +13,7 @@ export default function App() {
     <>
       <Hero />
       <TerminalSection />
+      <AgentCreator />
       <LoreOverview />
       <Features />
       <EconomySection />
