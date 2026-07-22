@@ -31,19 +31,6 @@ const CLASS_OPTIONS = [
   },
 ];
 
-const ARCHETYPE_OPTIONS = [
-  { id: "balanced", label: "Balanced" },
-  { id: "scavenger", label: "Scavenger" },
-  { id: "pathfinder", label: "Pathfinder" },
-  { id: "mercenary", label: "Mercenary" },
-];
-
-const RISK_OPTIONS = [
-  { id: "low", label: "Low" },
-  { id: "medium", label: "Medium" },
-  { id: "high", label: "High" },
-];
-
 const GOAL_OPTIONS = [
   { id: "relics", label: "Recover relic fragments" },
   { id: "wealth", label: "Build market wealth" },
@@ -56,6 +43,7 @@ const DEFAULT_PORTRAIT_URL = "/agent-portraits/male_001.png";
 const PORTRAIT_SETS = ["male", "female"];
 const MAX_PORTRAITS_PER_VARIANT = 12;
 const PORTRAIT_EXTENSIONS = ["png", "jpg", "jpeg"];
+const X_HANDLE = "@aq_ishredon";
 
 const BASE_STATS = {
   intelligence: 10,
@@ -72,6 +60,25 @@ function formatModifier(value) {
   return value >= 0 ? `+${value}` : `${value}`;
 }
 
+function curiosityFromTemperament(temperament) {
+  return temperament;
+}
+
+function cautionFromTemperament(temperament) {
+  return 101 - temperament;
+}
+
+function temperamentLabel(temperament) {
+  if (temperament <= 33) return "Cautious";
+  if (temperament >= 67) return "Curious";
+  return "Balanced";
+}
+
+function getShareTargetUrl() {
+  if (typeof window === "undefined") return "https://agentquest.xyz/#creator";
+  return `${window.location.origin}${window.location.pathname}#creator`;
+}
+
 function buildPortraitCandidates(portraitSet) {
   const out = [];
   for (let i = 1; i <= MAX_PORTRAITS_PER_VARIANT; i += 1) {
@@ -86,16 +93,14 @@ function buildPortraitCandidates(portraitSet) {
 export default function AgentCreator() {
   const [agentName, setAgentName] = useState("Kael of Ashford");
   const [selectedClassId, setSelectedClassId] = useState(CLASS_OPTIONS[0].id);
-  const [selectedArchetypeId, setSelectedArchetypeId] = useState(ARCHETYPE_OPTIONS[0].id);
-  const [selectedRiskId, setSelectedRiskId] = useState(RISK_OPTIONS[1].id);
   const [selectedGoalId, setSelectedGoalId] = useState(GOAL_OPTIONS[0].id);
   const [customGoal, setCustomGoal] = useState("");
-  const [curiosity, setCuriosity] = useState(68);
-  const [caution, setCaution] = useState(47);
+  const [temperament, setTemperament] = useState(57);
   const [portraitSet, setPortraitSet] = useState(PORTRAIT_SETS[0]);
   const [availablePortraits, setAvailablePortraits] = useState([DEFAULT_PORTRAIT_URL]);
   const [portraitIndex, setPortraitIndex] = useState(0);
   const [portraitLoading, setPortraitLoading] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   const selectedClass = useMemo(
     () => CLASS_OPTIONS.find((option) => option.id === selectedClassId) ?? CLASS_OPTIONS[0],
@@ -105,19 +110,17 @@ export default function AgentCreator() {
     () => GOAL_OPTIONS.find((option) => option.id === selectedGoalId) ?? GOAL_OPTIONS[0],
     [selectedGoalId]
   );
-  const selectedArchetype = useMemo(
-    () => ARCHETYPE_OPTIONS.find((option) => option.id === selectedArchetypeId) ?? ARCHETYPE_OPTIONS[0],
-    [selectedArchetypeId]
-  );
-
   const effectiveGoalLabel = useMemo(() => {
     if (selectedGoalId !== "custom") return selectedGoal.label;
     const trimmed = customGoal.trim();
     return trimmed || "Custom goal not set";
   }, [selectedGoalId, selectedGoal, customGoal]);
 
-  const effectiveGoalId = selectedGoalId === "custom" ? "custom" : selectedGoal.id;
   const currentPortrait = availablePortraits[portraitIndex] ?? DEFAULT_PORTRAIT_URL;
+  const displayName = agentName.trim() || "Unnamed Adventurer";
+  const curiosity = curiosityFromTemperament(temperament);
+  const caution = cautionFromTemperament(temperament);
+  const riskLabel = temperamentLabel(temperament);
 
   const stats = useMemo(() => {
     const classMods = selectedClass.statMods;
@@ -132,15 +135,33 @@ export default function AgentCreator() {
   }, [selectedClass, curiosity, caution]);
 
   const estimatedCreditsPerRun = useMemo(() => {
-    const riskMultiplier = selectedRiskId === "high" ? 1.2 : selectedRiskId === "low" ? 0.85 : 1;
-    const archetypeMultiplier = selectedArchetypeId === "scavenger" ? 0.95 : selectedArchetypeId === "mercenary" ? 1.1 : 1;
-    return Math.max(8, Math.round(12 * riskMultiplier * archetypeMultiplier));
-  }, [selectedRiskId, selectedArchetypeId]);
+    const riskMultiplier = temperament <= 33 ? 0.85 : temperament >= 67 ? 1.2 : 1;
+    return Math.max(8, Math.round(12 * riskMultiplier));
+  }, [temperament]);
 
   const agentSeedPreview = useMemo(() => {
     const normalized = agentName.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
     return normalized || "new-agent";
   }, [agentName]);
+
+  const shareText = useMemo(
+    () =>
+      [
+        `I forged ${displayName}, a ${selectedClass.label} for Ishredon.`,
+        `Goal: ${effectiveGoalLabel}.`,
+        `Temperament: ${riskLabel} (curiosity ${curiosity}, caution ${caution}).`,
+        `${X_HANDLE} #AgentQuest #Ishredon`,
+      ].join("\n"),
+    [displayName, selectedClass.label, effectiveGoalLabel, riskLabel, curiosity, caution]
+  );
+
+  const shareUrl = useMemo(() => {
+    const params = new URLSearchParams({
+      text: shareText,
+      url: getShareTargetUrl(),
+    });
+    return `https://twitter.com/intent/tweet?${params.toString()}`;
+  }, [shareText]);
 
   useEffect(() => {
     let cancelled = false;
@@ -169,6 +190,17 @@ export default function AgentCreator() {
       cancelled = true;
     };
   }, [portraitSet]);
+
+  useEffect(() => {
+    if (!isShareModalOpen) return undefined;
+
+    function handleKeyDown(event) {
+      if (event.key === "Escape") setIsShareModalOpen(false);
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isShareModalOpen]);
 
   function goToPreviousPortrait() {
     if (availablePortraits.length <= 1) return;
@@ -276,39 +308,6 @@ export default function AgentCreator() {
             </div>
           </div>
 
-          <div className="creator-control-row">
-            <div className="creator-control-block">
-              <p className="creator-label">ARCHETYPE</p>
-              <div className="creator-choice-grid">
-                {ARCHETYPE_OPTIONS.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    className={`creator-choice ${selectedArchetypeId === option.id ? "active" : ""}`}
-                    onClick={() => setSelectedArchetypeId(option.id)}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="creator-control-block">
-              <p className="creator-label">RISK PROFILE</p>
-              <div className="creator-choice-grid">
-                {RISK_OPTIONS.map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    className={`creator-choice ${selectedRiskId === option.id ? "active" : ""}`}
-                    onClick={() => setSelectedRiskId(option.id)}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
           <div className="creator-control-block">
             <p className="creator-label">STARTING GOAL</p>
             <div className="creator-choice-grid creator-choice-grid-2">
@@ -342,35 +341,27 @@ export default function AgentCreator() {
             ) : null}
           </div>
 
-          <div className="creator-control-row">
-            <div className="creator-control-block">
-              <label htmlFor="curiosity-range" className="creator-label">
-                CURIOSITY {curiosity}
-              </label>
-              <input
-                id="curiosity-range"
-                type="range"
-                min="1"
-                max="100"
-                value={curiosity}
-                className="creator-slider"
-                onChange={(event) => setCuriosity(Number(event.target.value))}
-              />
+          <div className="creator-control-block creator-temperament-block">
+            <div className="creator-temperament-header">
+              <span className="creator-label">CAUTION</span>
+              <span className="creator-label creator-temperament-center">
+                RISK PROFILE · {riskLabel}
+              </span>
+              <span className="creator-label">CURIOSITY</span>
             </div>
-            <div className="creator-control-block">
-              <label htmlFor="caution-range" className="creator-label">
-                CAUTION {caution}
-              </label>
-              <input
-                id="caution-range"
-                type="range"
-                min="1"
-                max="100"
-                value={caution}
-                className="creator-slider"
-                onChange={(event) => setCaution(Number(event.target.value))}
-              />
-            </div>
+            <input
+              id="temperament-range"
+              type="range"
+              min="1"
+              max="100"
+              value={temperament}
+              className="creator-slider creator-temperament-slider"
+              aria-valuetext={`Curiosity ${curiosity}, caution ${caution}`}
+              onChange={(event) => setTemperament(Number(event.target.value))}
+            />
+            <p className="creator-temperament-values">
+              Curiosity {curiosity} · Caution {caution}
+            </p>
           </div>
         </div>
 
@@ -378,8 +369,7 @@ export default function AgentCreator() {
           <p className="pixel creator-summary-title">&gt; CREATION SUMMARY</p>
           <div className="creator-summary-badges">
             <span>{selectedClass.label}</span>
-            <span>{selectedArchetype.label}</span>
-            <span>Risk {selectedRiskId}</span>
+            <span>{riskLabel}</span>
           </div>
           <div className="creator-stats">
             <span>INT {stats.intelligence}</span>
@@ -398,13 +388,10 @@ export default function AgentCreator() {
 
           <div className="creator-summary-list">
             <p>
-              <strong>Archetype:</strong> {selectedArchetype.label}
-            </p>
-            <p>
               <strong>Goal:</strong> {effectiveGoalLabel}
             </p>
             <p>
-              <strong>Risk:</strong> {selectedRiskId}
+              <strong>Temperament:</strong> {riskLabel} (CUR {curiosity} / CAU {caution})
             </p>
             <p>
               <strong>Estimated credits/run:</strong> {estimatedCreditsPerRun}
@@ -414,26 +401,87 @@ export default function AgentCreator() {
             </p>
           </div>
 
-          <pre className="creator-json-preview">
-{`{
-  "name": "${agentName.trim() || "Unnamed Adventurer"}",
-  "class": "${selectedClass.id}",
-  "archetype": "${selectedArchetype.id}",
-  "goal": "${effectiveGoalId}",
-  "goalLabel": "${effectiveGoalLabel.replace(/"/g, '\\"')}",
-  "personality": {
-    "curiosity": ${stats.curiosity},
-    "caution": ${stats.caution}
-  }
-}`}
-          </pre>
-
+          <button type="button" className="pixel creator-share-button" onClick={() => setIsShareModalOpen(true)}>
+            PREVIEW + SHARE ON X
+          </button>
           <button type="button" className="pixel creator-deploy" disabled>
             LOCKED: HOSTED DEPLOYMENT COMING SOON
           </button>
           <p className="muted">No auth or saving yet. UI preview only.</p>
         </aside>
       </div>
+      {isShareModalOpen ? (
+        <div className="creator-share-backdrop" role="presentation" onClick={() => setIsShareModalOpen(false)}>
+          <div
+            className="creator-share-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="creator-share-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="creator-share-header">
+              <p id="creator-share-title" className="pixel creator-share-title">
+                X POST PREVIEW
+              </p>
+              <button
+                type="button"
+                className="creator-share-close"
+                onClick={() => setIsShareModalOpen(false)}
+                aria-label="Close share preview"
+              >
+                X
+              </button>
+            </div>
+
+            <div className="creator-share-layout">
+              <div className="creator-share-portrait">
+                <img src={currentPortrait} alt={`${displayName} portrait preview`} />
+              </div>
+              <div className="creator-share-card">
+                <p className="creator-share-account">{X_HANDLE}</p>
+                <p className="creator-share-copy">{shareText}</p>
+                <div className="creator-share-stats" aria-label="Character stats">
+                  <span>INT {stats.intelligence}</span>
+                  <span>STR {stats.strength}</span>
+                  <span>END {stats.endurance}</span>
+                  <span>AGI {stats.agility}</span>
+                  <span>CUR {stats.curiosity}</span>
+                  <span>CAU {stats.caution}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="creator-share-summary">
+              <p>
+                <strong>Name:</strong> {displayName}
+              </p>
+              <p>
+                <strong>Class:</strong> {selectedClass.label}
+              </p>
+              <p>
+                <strong>Goal:</strong> {effectiveGoalLabel}
+              </p>
+              <p>
+                <strong>Temperament:</strong> {riskLabel}
+              </p>
+            </div>
+
+            <p className="creator-share-note">
+              X web intents can prefill text and a URL, but they cannot pre-attach this portrait as uploaded
+              media. The image is shown here as the preview; automatic image posts would need the X API.
+            </p>
+
+            <div className="creator-share-actions">
+              <a className="link-button pixel cta-share-button" href={shareUrl} target="_blank" rel="noreferrer noopener">
+                POST ON X
+              </a>
+              <button type="button" className="pixel creator-share-secondary" onClick={() => setIsShareModalOpen(false)}>
+                KEEP EDITING
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }

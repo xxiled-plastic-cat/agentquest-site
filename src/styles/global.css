@@ -512,6 +512,36 @@ body::after {
   accent-color: var(--primary);
 }
 
+.creator-temperament-block {
+  margin-top: 4px;
+}
+
+.creator-temperament-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.creator-temperament-header .creator-label {
+  margin: 0;
+  font-size: 10px;
+}
+
+.creator-temperament-center {
+  flex: 1;
+  text-align: center;
+  letter-spacing: 0.06em;
+}
+
+.creator-temperament-values {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: #ffcaca;
+}
+
 .creator-summary-title {
   margin: 0 0 12px;
 }
@@ -557,14 +587,12 @@ body::after {
   color: #ffcaca;
 }
 
-.creator-json-preview {
-  margin: 14px 0;
-  border: 1px solid rgba(255, 46, 46, 0.45);
-  background: #030303;
-  padding: 10px;
-  color: #f7c2c2;
-  overflow-x: auto;
-  font-size: 12px;
+.creator-share-button {
+  width: 100%;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  margin-top: 4px;
+  margin-bottom: 8px;
 }
 
 .creator-deploy {
@@ -596,6 +624,154 @@ body::after {
 .creator-shell--shadowwalker {
   border-color: #ff4343;
   box-shadow: 0 0 28px rgba(255, 70, 70, 0.2);
+}
+
+.creator-share-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.82);
+}
+
+.creator-share-modal {
+  width: min(100%, 780px);
+  max-height: min(90vh, 860px);
+  overflow-y: auto;
+  border: 1px solid var(--primary);
+  background: linear-gradient(180deg, #130606, #030303 58%, #000);
+  box-shadow: 0 0 40px rgba(255, 46, 46, 0.28);
+  padding: 18px;
+}
+
+.creator-share-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.creator-share-title {
+  margin: 0;
+  color: var(--primary);
+  line-height: 1.5;
+}
+
+.creator-share-close {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.creator-share-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.creator-share-portrait {
+  border: 1px solid rgba(255, 46, 46, 0.6);
+  background:
+    radial-gradient(circle at 18% 24%, rgba(255, 120, 120, 0.32), transparent 34%),
+    linear-gradient(160deg, #131313 0%, #1b0606 52%, #050505 100%);
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.creator-share-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center top;
+  display: block;
+}
+
+.creator-share-card {
+  border: 1px solid rgba(255, 46, 46, 0.5);
+  background: rgba(0, 0, 0, 0.68);
+  padding: 14px;
+}
+
+.creator-share-account {
+  margin: 0 0 10px;
+  color: var(--primary);
+  font-size: 13px;
+}
+
+.creator-share-copy {
+  margin: 0 0 14px;
+  color: #fff4f4;
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.creator-share-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.creator-share-stats span {
+  border: 1px solid rgba(255, 46, 46, 0.5);
+  background: rgba(255, 46, 46, 0.1);
+  color: #ffe3e3;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.creator-share-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 14px;
+  margin-top: 14px;
+  border: 1px solid rgba(255, 46, 46, 0.35);
+  background: rgba(12, 12, 12, 0.8);
+  padding: 12px;
+}
+
+.creator-share-summary p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.creator-share-note {
+  margin: 14px 0 0;
+  color: #ffcaca;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.creator-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.creator-share-actions .link-button {
+  margin-top: 0;
+}
+
+.creator-share-secondary {
+  background: transparent;
+  color: var(--primary);
+  margin: 0;
+}
+
+.creator-share-secondary:hover {
+  background: var(--primary);
+  color: var(--text);
 }
 
 .cta-section {
@@ -851,6 +1027,38 @@ button:hover,
 
   .creator-deploy {
     font-size: 7px;
+  }
+
+  .creator-share-button {
+    font-size: 7px;
+  }
+
+  .creator-share-backdrop {
+    padding: 12px;
+  }
+
+  .creator-share-modal {
+    padding: 14px;
+  }
+
+  .creator-share-layout,
+  .creator-share-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .creator-share-portrait {
+    min-height: 240px;
+  }
+
+  .creator-share-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .creator-share-actions .link-button,
+  .creator-share-secondary {
+    width: 100%;
+    text-align: center;
   }
 
   .site-footer {
